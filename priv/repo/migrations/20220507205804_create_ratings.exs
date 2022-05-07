@@ -12,5 +12,9 @@ defmodule Pento.Repo.Migrations.CreateRatings do
 
     create index(:ratings, [:user_id])
     create index(:ratings, [:product_id])
+
+    create unique_index(:ratings, [:user_id, :product_id],
+        name: :index_ratings_on_user_product)
+
   end
 end
