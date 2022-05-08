@@ -1,5 +1,6 @@
 defmodule PentoWeb.Admin.SurveyResultsLive do
   use PentoWeb, :live_component
+  use PentoWeb, :chart_live
 
   alias Pento.Catalog
 
@@ -61,29 +62,18 @@ defmodule PentoWeb.Admin.SurveyResultsLive do
         )
     end
 
-  defp make_bar_chart_dataset(data) do
-    Contex.Dataset.new(data) # contex unavailable
-  end
-
   defp assign_chart(%{assigns: %{dataset: dataset}} = socket) do
     socket
     |> assign(:chart, make_bar_chart(dataset))
   end
 
-  defp make_bar_chart(dataset) do
-    Contex.BarChart.new(dataset)
-  end
 
   def assign_chart_svg(%{assigns: %{chart: chart}} = socket) do
     socket
-    |> assign(:chart_svg, render_bar_chart(chart))
-  end
-
-  defp render_bar_chart(chart) do
-    Contex.Plot.new(500, 400, chart) # was used with just Plot
-    |> Contex.Plot.titles(title(), subtitle())
-    |> Contex.Plot.axis_labels(x_axis(), y_axis())
-    |> Contex.Plot.to_svg()
+    |> assign(
+    :chart_svg,
+    render_bar_chart(chart, title(), subtitle(), x_axis(), y_axis())
+    )
   end
 
   defp title do
