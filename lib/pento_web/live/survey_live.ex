@@ -6,6 +6,7 @@ defmodule PentoWeb.SurveyLive do
   alias PentoWeb.DemographicLive
   alias Pento.Catalog
   alias PentoWeb.RatingLive
+  alias PentoWeb.Endpoint
 
   @survey_results_topic "survey_results"
 
